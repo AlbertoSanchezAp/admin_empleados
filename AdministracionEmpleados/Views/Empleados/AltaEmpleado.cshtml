@@ -3,49 +3,59 @@
 @{
     ViewData["Title"] = "AltaEmpleado";
 }
-
-<h1>View</h1>
-
-<h4>Registro Empleados</h4>
+@{
+    var lista = new SelectList(
+        new List<SelectListItem>{
+                 new SelectListItem{Text="Hombre",Value="H"},
+                 new SelectListItem(){Text="Mujer",Value="M"},
+            },"Value","Text");
+}
+<h1>Registro de Empleados</h1>
 <hr />
+
 @using (Html.BeginForm())
 {
     <div class="row">
         <div class="col-md-4">
-            <form asp-action="" asp-controller="EmpleadosController" method="post">
+            <form asp-action="AltaEmpleado">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
-                    <label asp-for="IdEmpleado" class="control-label"></label>
-                    <input asp-for="IdEmpleado" class="form-control" />
-                    <span asp-validation-for="IdEmpleado" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.IdEmpleado, new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.IdEmpleado)
-                        @Html.ValidationMessageFor(model => model.IdEmpleado)
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="NombreEmpleado" class="control-label"></label>
+                    <label class="control-label">Nombre Completo</label>
                     <input asp-for="NombreEmpleado" class="form-control" />
                     <span asp-validation-for="NombreEmpleado" class="text-danger"></span>
                 </div>
+                <p>
+                    @Html.ActionLink("Actualizar Datos", "ActualizarEmpleados")
+                </p>
                 <div class="form-group">
-                    <label asp-for="Edad" class="control-label"></label>
+                    <label class="control-label">Edad</label>
                     <input asp-for="Edad" class="form-control" />
                     <span asp-validation-for="Edad" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Sexo" class="control-label"></label>
-                    <input asp-for="Sexo" class="form-control" />
-                    <span asp-validation-for="Sexo" class="text-danger"></span>
+                    <label class="control-label">Sexo</label>
+
+                    @Html.DropDownList("list", lista, "Seleccione", new { @class = "form-control" })
                 </div>
                 <div class="form-group">
-                    <label asp-for="TipoEmpleado" class="control-label"></label>
+                    <label class="control-label">Rol</label>
+                    <input asp-for="RolEmpleado" class="form-control" />
+                    <span asp-validation-for="RolEmpleado" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Tipo</label>
                     <input asp-for="TipoEmpleado" class="form-control" />
                     <span asp-validation-for="TipoEmpleado" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Sueldo Base Hora</label>
+                    <input asp-for="SueldoBaseHora" class="form-control" />
+                    <span asp-validation-for="SueldoBaseHora" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Pago por Entrega</label>
+                    <input asp-for="PagoHoraEntrega" class="form-control" />
+                    <span asp-validation-for="PagoHoraEntrega" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Create" class="btn btn-primary" />
@@ -54,10 +64,9 @@
         </div>
     </div>
 
-<div>
-    <a asp-action="/Home/Index">Back to List</a>
-</div>
-
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
 }
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
